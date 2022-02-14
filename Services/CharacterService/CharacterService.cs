@@ -86,7 +86,7 @@ namespace dotnet_rpg.Services.CharacterService
             ServiceResponse<GetCharacterDto> serviceResponse = new ServiceResponse<GetCharacterDto>();
             try
             {
-                //Done differently to check the Inclued() method. Can also achieve the same result by checking userID in FirstOrDefaultAsync.
+                //Done differently to check the Inclued() method. Can also achieve the same result by checking userID in FirstOrDefaultAsync via lambda expression.
                 Character character = await _context.characters.Include(c => c.User).FirstOrDefaultAsync(c => c.charId == updatedCharacter.charId);
                 if (character.User.Id == GetUserId()){
                 character.charClass = updatedCharacter.charClass;

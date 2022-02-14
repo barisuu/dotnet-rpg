@@ -15,11 +15,16 @@ namespace dotnet_rpg.Data
         
         public DbSet<Weapon> weapons {get; set;}
 
-        /*protected override void OnModelCreating(ModelBuilder builder){
-            base.OnModelCreating(builder);
+        public DbSet<Skill> skills { get; set; }
+
+        public DbSet<CharacterSkill> characterskills { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder builder){
+            builder.Entity<CharacterSkill>().HasKey(cs => new {cs.CharacterFK, cs.SkillFK});
+           // builder.Entity<CharacterSkill>().HasOne(cs => cs.Character).WithMany(c => c.)
         }
 
-        public override int SaveChanges()
+        /*public override int SaveChanges()
         {
             ChangeTracker.DetectChanges();
             return base.SaveChanges();
