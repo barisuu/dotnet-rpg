@@ -42,7 +42,10 @@ namespace dotnet_rpg.Services.WeaponService
                     Damage = newWeapon.Damage,
                     Character = character 
                 };
-
+                if (await _context.weapons.AnyAsync(w => w.CharacterFK == newWeapon.CharacterFK)){
+                    Weapon removedWep =await _context.weapons.FirstOrDefaultAsync(w => w.CharacterFK == newWeapon.CharacterFK);
+                    _context.weapons.Remove(removedWep);
+                }
                 await _context.weapons.AddAsync(weapon);
                 await _context.SaveChangesAsync();
 
